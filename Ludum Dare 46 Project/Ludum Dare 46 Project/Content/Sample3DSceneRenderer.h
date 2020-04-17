@@ -45,6 +45,18 @@ namespace Ludum_Dare_46_Project
 		bool	m_loadingComplete;
 		float	m_degreesPerSecond;
 		bool	m_tracking;
+
+		XMFLOAT3 lightDirection;
+		XMFLOAT4 diffuseMaterial;
+		XMFLOAT4 diffuseLight;
+
+		XMFLOAT4 ambientMaterial;
+		XMFLOAT4 ambientLight;
+
+		XMFLOAT4 SpecularMtrl;
+		XMFLOAT4 SpecularLight;
+		float SpecularPower;
+		XMFLOAT3 EyePosW;
 	};
 }
 
