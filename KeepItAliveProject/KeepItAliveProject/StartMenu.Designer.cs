@@ -56,6 +56,7 @@
             this.pastelColourButton.TabIndex = 2;
             this.pastelColourButton.Text = "Pastel";
             this.pastelColourButton.UseVisualStyleBackColor = true;
+            this.pastelColourButton.Click += new System.EventHandler(this.pastelColourButton_Click);
             // 
             // gothColourButton
             // 
@@ -66,6 +67,7 @@
             this.gothColourButton.TabIndex = 3;
             this.gothColourButton.Text = "Goth";
             this.gothColourButton.UseVisualStyleBackColor = true;
+            this.gothColourButton.Click += new System.EventHandler(this.gothColourButton_Click);
             // 
             // referenceColourButton
             // 
@@ -76,6 +78,7 @@
             this.referenceColourButton.TabIndex = 4;
             this.referenceColourButton.Text = "Reference";
             this.referenceColourButton.UseVisualStyleBackColor = true;
+            this.referenceColourButton.Click += new System.EventHandler(this.referenceColourButton_Click);
             // 
             // styleLabel
             // 

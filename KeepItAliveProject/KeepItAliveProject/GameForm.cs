@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Commons;
 
 namespace KeepItAliveProject
 {
@@ -20,8 +21,9 @@ namespace KeepItAliveProject
         public int CurrentSpriteNumber;
         public Point Position;
         protected Point SpritePosition;
+        private StyleOfCreature selectedStyle;
 
-        public GameForm()
+        public GameForm(StyleOfCreature style)
         {
             //Creature creature;
             //CurrentBitmap = new Bitmap("Scott-Walk-Single.PNG");
@@ -31,6 +33,8 @@ namespace KeepItAliveProject
             //Position.Y = 300;
             //Graphics g = this.CreateGraphics();
             //g.DrawImage(CurrentBitmap, Position.X, Position.Y);
+            selectedStyle = style;
+
             InitializeComponent();
 
             //creature = new Creature();
