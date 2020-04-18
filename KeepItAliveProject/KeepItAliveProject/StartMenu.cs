@@ -10,16 +10,18 @@ using System.Windows.Forms;
 
 namespace KeepItAliveProject
 {
-    public partial class Form1 : Form
+    public partial class StartMenu : Form
     {
-        public Form1()
+        GameForm game;
+        public StartMenu()
         {
             InitializeComponent();
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void startButton_Click(object sender, EventArgs e)
         {
-            this.Opacity = (double)trackBar1.Value / trackBar1.Maximum;
+            game = new GameForm();
+            game.ShowDialog();
         }
     }
 }
