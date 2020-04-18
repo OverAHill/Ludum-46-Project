@@ -13,31 +13,20 @@ namespace KeepItAliveProject
 {
     public partial class GameForm : Form
     {
-        public Bitmap CurrentBitmap;
-        public Rectangle SourceRect;
-        public Rectangle DestRect;
-        public Size CurrentSpriteSize;
-        public int NumberOfSprites;
-        public int CurrentSpriteNumber;
-        public Point Position;
-        protected Point SpritePosition;
-        private StyleOfCreature selectedStyle;
+        Creature creature;
+        
 
-        public GameForm(StyleOfCreature style)
+        public GameForm(StyleOfCreature style, string name)
         {
-            //Creature creature;
-            //CurrentBitmap = new Bitmap("Scott-Walk-Single.PNG");
-            //CurrentSpriteSize = new Size(37, 63); //wdith height single sprite
-            //SpritePosition = new Point(0, 0);
-            //Position.X = 200;
-            //Position.Y = 300;
-            //Graphics g = this.CreateGraphics();
-            //g.DrawImage(CurrentBitmap, Position.X, Position.Y);
-            selectedStyle = style;
-
             InitializeComponent();
 
-            //creature = new Creature();
+            this.graphicTimer.Tick += new System.EventHandler(this.Update);
+            graphicTimer.Start();
+
+            creature = new Creature();
+            creature.SetStyle(style);
+            creature.SetName(name);
+            creatureNameBox.Text = creature.GetName();
 
             //this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer, true);
         }
@@ -50,20 +39,40 @@ namespace KeepItAliveProject
 
         private void Draw(object sender, PaintEventArgs e)
         {
-            //e.Graphics.DrawImage(CurrentBitmap, Position.X, Position.Y);
+            creature.Draw(sender, e);
         }
 
         private void petButton_Click(object sender, EventArgs e)
         {
-
+            creature.IncreaseHappiness(1);
         }
 
         private void feedButton_Click(object sender, EventArgs e)
         {
-
+            creature.ReduceHunger(1);
         }
 
         private void tickleButton_Click(object sender, EventArgs e)
+        {
+            creature.IncreaseHappiness(1);
+        }
+
+        private void GameForm_Paint(object sender, PaintEventArgs e)
+        {
+            Draw(sender, e);
+        }
+
+        private void Update(object sender, EventArgs e)
+        {
+            creature.Update(sender, e);
+            hapinessLabel.Text = "Happiness: " + creature.GetHappiness().ToString();
+            hpLabel.Text = "HP: " + creature.GetHealth().ToString();
+            hungerLabel.Text = "Hunger: " + creature.GetHunger().ToString();
+
+            this.Refresh();
+        }
+
+        private void creatureNameBox_Click(object sender, EventArgs e)
         {
 
         }

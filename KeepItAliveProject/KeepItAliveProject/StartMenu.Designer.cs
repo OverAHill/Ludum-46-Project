@@ -35,57 +35,64 @@
             this.styleLabel = new System.Windows.Forms.Label();
             this.gameTitleLabel = new System.Windows.Forms.Label();
             this.warningLabel = new System.Windows.Forms.Label();
+            this.nameTextLabel = new System.Windows.Forms.Label();
+            this.nameTextBox = new System.Windows.Forms.RichTextBox();
+            this.enterNameWarningLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // startButton
             // 
+            this.startButton.BackColor = System.Drawing.Color.White;
             this.startButton.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startButton.Location = new System.Drawing.Point(330, 324);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(135, 44);
             this.startButton.TabIndex = 1;
             this.startButton.Text = "Start";
-            this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.UseVisualStyleBackColor = false;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // pastelColourButton
             // 
+            this.pastelColourButton.BackColor = System.Drawing.Color.White;
             this.pastelColourButton.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pastelColourButton.Location = new System.Drawing.Point(332, 223);
+            this.pastelColourButton.Location = new System.Drawing.Point(331, 258);
             this.pastelColourButton.Name = "pastelColourButton";
             this.pastelColourButton.Size = new System.Drawing.Size(135, 44);
             this.pastelColourButton.TabIndex = 2;
             this.pastelColourButton.Text = "Pastel";
-            this.pastelColourButton.UseVisualStyleBackColor = true;
+            this.pastelColourButton.UseVisualStyleBackColor = false;
             this.pastelColourButton.Click += new System.EventHandler(this.pastelColourButton_Click);
             // 
             // gothColourButton
             // 
+            this.gothColourButton.BackColor = System.Drawing.Color.White;
             this.gothColourButton.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gothColourButton.Location = new System.Drawing.Point(160, 223);
+            this.gothColourButton.Location = new System.Drawing.Point(159, 258);
             this.gothColourButton.Name = "gothColourButton";
             this.gothColourButton.Size = new System.Drawing.Size(135, 44);
             this.gothColourButton.TabIndex = 3;
             this.gothColourButton.Text = "Goth";
-            this.gothColourButton.UseVisualStyleBackColor = true;
+            this.gothColourButton.UseVisualStyleBackColor = false;
             this.gothColourButton.Click += new System.EventHandler(this.gothColourButton_Click);
             // 
             // referenceColourButton
             // 
+            this.referenceColourButton.BackColor = System.Drawing.Color.White;
             this.referenceColourButton.Font = new System.Drawing.Font("Microsoft YaHei", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.referenceColourButton.Location = new System.Drawing.Point(521, 223);
+            this.referenceColourButton.Location = new System.Drawing.Point(520, 258);
             this.referenceColourButton.Name = "referenceColourButton";
             this.referenceColourButton.Size = new System.Drawing.Size(135, 44);
             this.referenceColourButton.TabIndex = 4;
             this.referenceColourButton.Text = "Reference";
-            this.referenceColourButton.UseVisualStyleBackColor = true;
+            this.referenceColourButton.UseVisualStyleBackColor = false;
             this.referenceColourButton.Click += new System.EventHandler(this.referenceColourButton_Click);
             // 
             // styleLabel
             // 
             this.styleLabel.AutoSize = true;
             this.styleLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.styleLabel.Location = new System.Drawing.Point(336, 164);
+            this.styleLabel.Location = new System.Drawing.Point(335, 220);
             this.styleLabel.Name = "styleLabel";
             this.styleLabel.Size = new System.Drawing.Size(142, 26);
             this.styleLabel.TabIndex = 5;
@@ -112,11 +119,44 @@
             this.warningLabel.Text = "Please select a style first";
             this.warningLabel.Visible = false;
             // 
+            // nameTextLabel
+            // 
+            this.nameTextLabel.AutoSize = true;
+            this.nameTextLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameTextLabel.Location = new System.Drawing.Point(335, 131);
+            this.nameTextLabel.Name = "nameTextLabel";
+            this.nameTextLabel.Size = new System.Drawing.Size(145, 26);
+            this.nameTextLabel.TabIndex = 8;
+            this.nameTextLabel.Text = "Enter A Name";
+            // 
+            // nameTextBox
+            // 
+            this.nameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameTextBox.Location = new System.Drawing.Point(285, 160);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(241, 26);
+            this.nameTextBox.TabIndex = 9;
+            this.nameTextBox.Text = "";
+            // 
+            // enterNameWarningLabel
+            // 
+            this.enterNameWarningLabel.AutoSize = true;
+            this.enterNameWarningLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.enterNameWarningLabel.Location = new System.Drawing.Point(309, 189);
+            this.enterNameWarningLabel.Name = "enterNameWarningLabel";
+            this.enterNameWarningLabel.Size = new System.Drawing.Size(202, 21);
+            this.enterNameWarningLabel.TabIndex = 10;
+            this.enterNameWarningLabel.Text = "Please select a name first";
+            this.enterNameWarningLabel.Visible = false;
+            // 
             // StartMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.enterNameWarningLabel);
+            this.Controls.Add(this.nameTextBox);
+            this.Controls.Add(this.nameTextLabel);
             this.Controls.Add(this.warningLabel);
             this.Controls.Add(this.gameTitleLabel);
             this.Controls.Add(this.styleLabel);
@@ -126,6 +166,7 @@
             this.Controls.Add(this.startButton);
             this.Name = "StartMenu";
             this.Text = "StartMenu";
+            this.Load += new System.EventHandler(this.StartMenu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,5 +181,8 @@
         private System.Windows.Forms.Label styleLabel;
         private System.Windows.Forms.Label gameTitleLabel;
         private System.Windows.Forms.Label warningLabel;
+        private System.Windows.Forms.Label nameTextLabel;
+        private System.Windows.Forms.RichTextBox nameTextBox;
+        private System.Windows.Forms.Label enterNameWarningLabel;
     }
 }

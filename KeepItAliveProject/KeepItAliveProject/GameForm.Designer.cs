@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.petButton = new System.Windows.Forms.Button();
             this.feedButton = new System.Windows.Forms.Button();
             this.tickleButton = new System.Windows.Forms.Button();
-            this.creatureName = new System.Windows.Forms.Label();
+            this.creatureNameBox = new System.Windows.Forms.Label();
             this.hpLabel = new System.Windows.Forms.Label();
             this.hapinessLabel = new System.Windows.Forms.Label();
+            this.graphicTimer = new System.Windows.Forms.Timer(this.components);
+            this.hungerLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // petButton
@@ -69,15 +72,16 @@
             this.tickleButton.UseVisualStyleBackColor = true;
             this.tickleButton.Click += new System.EventHandler(this.tickleButton_Click);
             // 
-            // creatureName
+            // creatureNameBox
             // 
-            this.creatureName.AutoSize = true;
-            this.creatureName.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.creatureName.Location = new System.Drawing.Point(40, 34);
-            this.creatureName.Name = "creatureName";
-            this.creatureName.Size = new System.Drawing.Size(183, 26);
-            this.creatureName.TabIndex = 3;
-            this.creatureName.Text = "Name of Creature";
+            this.creatureNameBox.AutoSize = true;
+            this.creatureNameBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.creatureNameBox.Location = new System.Drawing.Point(40, 34);
+            this.creatureNameBox.Name = "creatureNameBox";
+            this.creatureNameBox.Size = new System.Drawing.Size(183, 26);
+            this.creatureNameBox.TabIndex = 3;
+            this.creatureNameBox.Text = "Name of Creature";
+            this.creatureNameBox.Click += new System.EventHandler(this.creatureNameBox_Click);
             // 
             // hpLabel
             // 
@@ -99,20 +103,32 @@
             this.hapinessLabel.TabIndex = 5;
             this.hapinessLabel.Text = "Happiness:";
             // 
+            // hungerLabel
+            // 
+            this.hungerLabel.AutoSize = true;
+            this.hungerLabel.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hungerLabel.Location = new System.Drawing.Point(40, 179);
+            this.hungerLabel.Name = "hungerLabel";
+            this.hungerLabel.Size = new System.Drawing.Size(98, 28);
+            this.hungerLabel.TabIndex = 6;
+            this.hungerLabel.Text = "Hunger:";
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.hungerLabel);
             this.Controls.Add(this.hapinessLabel);
             this.Controls.Add(this.hpLabel);
-            this.Controls.Add(this.creatureName);
+            this.Controls.Add(this.creatureNameBox);
             this.Controls.Add(this.tickleButton);
             this.Controls.Add(this.feedButton);
             this.Controls.Add(this.petButton);
             this.Name = "GameForm";
             this.Text = "GameForm";
             this.Load += new System.EventHandler(this.GameForm_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameForm_Paint);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -123,8 +139,12 @@
         private System.Windows.Forms.Button petButton;
         private System.Windows.Forms.Button feedButton;
         private System.Windows.Forms.Button tickleButton;
-        private System.Windows.Forms.Label creatureName;
+        private System.Windows.Forms.Label creatureNameBox;
         private System.Windows.Forms.Label hpLabel;
         private System.Windows.Forms.Label hapinessLabel;
+        private System.Windows.Forms.Timer graphicTimer;
+        private System.Windows.Forms.Label hungerLabel;
     }
+
+
 }
