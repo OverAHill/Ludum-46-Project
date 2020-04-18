@@ -12,6 +12,11 @@ namespace KeepItAliveProject
     class Creature
     {
         Bitmap CurrentBitmap;
+        Bitmap IdleBitmap;
+        Bitmap EatingBitmap;
+        Bitmap TickeledBitmap;
+        Bitmap PettingBitmap;
+
 
         Rectangle SourceRect;
         Rectangle DestRect;
@@ -27,11 +32,17 @@ namespace KeepItAliveProject
 
         StyleOfCreature Style;
         AnimationState CurrentAnimationState;
+        AnimationState PreviousAnimationState;
 
         string creatureName;
         uint healthPoint;
         int happinessLevel;
         int hungerLevel;
+        double sentienceLevel;
+        double boredomLevel;
+        int temporaryAnimationLoop;
+
+        public double GetSentienceLevel() { return sentienceLevel; }
 
         int spriteScale = 4;
 
@@ -54,7 +65,12 @@ namespace KeepItAliveProject
 
         public Creature()
         {
-            CurrentBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
+            IdleBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
+            EatingBitmap = new Bitmap(@"Images\Eating.PNG");
+            TickeledBitmap = new Bitmap(@"Images\Tickeled.PNG");
+            PettingBitmap = new Bitmap(@"Images\Pet.PNG");
+
+            CurrentBitmap = IdleBitmap;
             CurrentSpriteSize = new Size(107, 93); //width height single sprite
 
             
@@ -72,8 +88,12 @@ namespace KeepItAliveProject
             healthPoint = 10; //eventually health point will switch to 100 and they will be the players hp
             happinessLevel = 5;
             hungerLevel = 6;
+            sentienceLevel = 0;
+            boredomLevel = 0;
+            temporaryAnimationLoop = 0;
 
             CurrentAnimationState = AnimationState.Idle;
+            PreviousAnimationState = AnimationState.Idle;
         }
 
         public void Draw(object sender, PaintEventArgs e)
@@ -84,10 +104,12 @@ namespace KeepItAliveProject
         public void Update(object sender, EventArgs e)
         {
             //update variables (state machine)
+            
 
             if (hungerLevel <= 4)
             {
                 //decay happiness
+                CurrentAnimationState = AnimationState.Idle;
             }
 
 
@@ -96,43 +118,131 @@ namespace KeepItAliveProject
                 if (happinessLevel < 2)
                 {
                     //angry
+                    CurrentAnimationState = AnimationState.Idle;
                 }
                 else
                 {
                     //grumpy
+                    CurrentAnimationState = AnimationState.Idle;
                 }
             }
 
             if (healthPoint < 0)
             {
                 //dead
+                CurrentAnimationState = AnimationState.Idle;
             }
 
-            //update sprite pack
-            switch(CurrentAnimationState)
+            sentienceLevel += 0.1;
+
+            if(sentienceLevel >= 100)
             {
-                case AnimationState.Idle:
-                    break;
+                //its time
+                Console.Write("scream");
+            }
 
-                case AnimationState.Happy:
-                    break;
+            if(PreviousAnimationState != CurrentAnimationState)
+            {
+                PreviousAnimationState = CurrentAnimationState;
+                //update sprite pack
+                switch (CurrentAnimationState)
+                {
+                    case AnimationState.Idle:
+                        CurrentBitmap = IdleBitmap;
+                        CurrentSpriteNumber = 0;
+                        NumberOfSprites = 3;
+                        CurrentSpriteSize.Width = 107;
+                        CurrentSpriteSize.Height = 93;
+                        break;
 
-                case AnimationState.Hungry:
-                    break;
+                    case AnimationState.Happy:
+                        CurrentSpriteNumber = 0;
+                        NumberOfSprites = 3;
+                        CurrentSpriteSize.Width = 107;
+                        CurrentSpriteSize.Height = 93;
+                        break;
 
-                case AnimationState.LowHP:
-                    break;
+                    case AnimationState.Hungry:
+                        CurrentSpriteNumber = 0;
+                        NumberOfSprites = 3;
+                        CurrentSpriteSize.Width = 107;
+                        CurrentSpriteSize.Height = 93;
+                        break;
 
-                default:
-                    break;
+                    case AnimationState.LowHP:
+                        CurrentSpriteNumber = 0;
+                        NumberOfSprites = 3;
+                        CurrentSpriteSize.Width = 107;
+                        CurrentSpriteSize.Height = 93;
+                        break;
+
+                    case AnimationState.Eating:
+                        CurrentBitmap = EatingBitmap;
+                        CurrentSpriteNumber = 0;
+                        NumberOfSprites = 3;
+                        CurrentSpriteSize.Width = 107;
+                        CurrentSpriteSize.Height = 93;
+                        break;
+
+                    case AnimationState.Tickeled:
+                        CurrentBitmap = TickeledBitmap;
+                        CurrentSpriteNumber = 0;
+                        NumberOfSprites = 3;
+                        CurrentSpriteSize.Width = 107;
+                        CurrentSpriteSize.Height = 93;
+                        break;
+
+                    case AnimationState.Pet:
+                        CurrentBitmap = PettingBitmap;
+                        CurrentSpriteNumber = 0;
+                        NumberOfSprites = 3;
+                        CurrentSpriteSize.Width = 107;
+                        CurrentSpriteSize.Height = 93;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                
+
             }
 
             //update sprite frame
             CurrentSpriteNumber++;
 
             if (CurrentSpriteNumber > NumberOfSprites)
-                CurrentSpriteNumber = 0;
+            {
+                switch (CurrentAnimationState)
+                {
+                    case AnimationState.Eating:
+                        temporaryAnimationLoop++;
+                        break;
 
+                    case AnimationState.Tickeled:
+                        temporaryAnimationLoop++;
+                        break;
+
+                    case AnimationState.Pet:
+                        temporaryAnimationLoop++;
+                        break;
+
+                    default:
+                        break;
+                }
+
+
+                if (temporaryAnimationLoop > 4)
+                {
+                    CurrentAnimationState = AnimationState.Idle;
+                    temporaryAnimationLoop = 0;
+                }
+
+                CurrentSpriteNumber = 0;
+            }
+               
+
+            
 
             //update sprite position on sheet
             UpdateRects();
@@ -151,6 +261,22 @@ namespace KeepItAliveProject
 
             DestRect.Location = Position;
             DestRect.Size = AdjustedSpriteSize;
+        }
+
+
+        public void Tickle()
+        {
+            CurrentAnimationState = AnimationState.Tickeled;
+        }
+
+        public void Eat()
+        {
+            CurrentAnimationState = AnimationState.Eating;
+        }
+
+        public void pet()
+        {
+            CurrentAnimationState = AnimationState.Pet;
         }
     }
 }

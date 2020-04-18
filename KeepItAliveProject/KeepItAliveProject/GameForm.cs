@@ -44,17 +44,34 @@ namespace KeepItAliveProject
 
         private void petButton_Click(object sender, EventArgs e)
         {
-            creature.IncreaseHappiness(1);
+            creature.pet();
+
+            if (tutorialLabel.Visible)
+            {
+                tutorialLabel.Visible = false;
+                tutorialLabel2.Visible = true;
+            }
+                
         }
 
         private void feedButton_Click(object sender, EventArgs e)
         {
-            creature.ReduceHunger(1);
+            creature.Eat();
+
+            if (tutorialLabel2.Visible)
+            {
+                tutorialLabel2.Visible = false;
+                tutorialLabel3.Visible = true;
+            }
         }
 
         private void tickleButton_Click(object sender, EventArgs e)
         {
-            creature.IncreaseHappiness(1);
+            creature.Tickle();
+
+            if (tutorialLabel3.Visible)
+                tutorialLabel3.Visible = false;
+            
         }
 
         private void GameForm_Paint(object sender, PaintEventArgs e)

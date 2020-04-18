@@ -37,6 +37,9 @@
             this.hapinessLabel = new System.Windows.Forms.Label();
             this.graphicTimer = new System.Windows.Forms.Timer(this.components);
             this.hungerLabel = new System.Windows.Forms.Label();
+            this.tutorialLabel = new System.Windows.Forms.Label();
+            this.tutorialLabel2 = new System.Windows.Forms.Label();
+            this.tutorialLabel3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // petButton
@@ -113,11 +116,46 @@
             this.hungerLabel.TabIndex = 6;
             this.hungerLabel.Text = "Hunger:";
             // 
+            // tutorialLabel
+            // 
+            this.tutorialLabel.AutoSize = true;
+            this.tutorialLabel.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tutorialLabel.Location = new System.Drawing.Point(561, 15);
+            this.tutorialLabel.Name = "tutorialLabel";
+            this.tutorialLabel.Size = new System.Drawing.Size(100, 16);
+            this.tutorialLabel.TabIndex = 7;
+            this.tutorialLabel.Text = "Try Clicking Pet ";
+            // 
+            // tutorialLabel2
+            // 
+            this.tutorialLabel2.AutoSize = true;
+            this.tutorialLabel2.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tutorialLabel2.Location = new System.Drawing.Point(561, 84);
+            this.tutorialLabel2.Name = "tutorialLabel2";
+            this.tutorialLabel2.Size = new System.Drawing.Size(89, 16);
+            this.tutorialLabel2.TabIndex = 8;
+            this.tutorialLabel2.Text = "Now Try Feed";
+            this.tutorialLabel2.Visible = false;
+            // 
+            // tutorialLabel3
+            // 
+            this.tutorialLabel3.AutoSize = true;
+            this.tutorialLabel3.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tutorialLabel3.Location = new System.Drawing.Point(561, 153);
+            this.tutorialLabel3.Name = "tutorialLabel3";
+            this.tutorialLabel3.Size = new System.Drawing.Size(104, 16);
+            this.tutorialLabel3.TabIndex = 9;
+            this.tutorialLabel3.Text = "And finally Tickle";
+            this.tutorialLabel3.Visible = false;
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.tutorialLabel3);
+            this.Controls.Add(this.tutorialLabel2);
+            this.Controls.Add(this.tutorialLabel);
             this.Controls.Add(this.hungerLabel);
             this.Controls.Add(this.hapinessLabel);
             this.Controls.Add(this.hpLabel);
@@ -144,6 +182,9 @@
         private System.Windows.Forms.Label hapinessLabel;
         private System.Windows.Forms.Timer graphicTimer;
         private System.Windows.Forms.Label hungerLabel;
+        private System.Windows.Forms.Label tutorialLabel;
+        private System.Windows.Forms.Label tutorialLabel2;
+        private System.Windows.Forms.Label tutorialLabel3;
     }
 
 
