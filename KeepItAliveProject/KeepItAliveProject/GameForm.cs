@@ -28,7 +28,7 @@ namespace KeepItAliveProject
             creature.SetName(name);
             creatureNameBox.Text = creature.GetName();
 
-            //this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer, true);
+            this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer, true);
         }
 
         private void GameForm_Load(object sender, EventArgs e)

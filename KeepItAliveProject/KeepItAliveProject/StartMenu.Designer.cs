@@ -38,6 +38,9 @@
             this.nameTextLabel = new System.Windows.Forms.Label();
             this.nameTextBox = new System.Windows.Forms.RichTextBox();
             this.enterNameWarningLabel = new System.Windows.Forms.Label();
+            this.enterNameWarningLabel2 = new System.Windows.Forms.Label();
+            this.playerNameTextBox = new System.Windows.Forms.RichTextBox();
+            this.playerNameLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // startButton
@@ -123,7 +126,7 @@
             // 
             this.nameTextLabel.AutoSize = true;
             this.nameTextLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameTextLabel.Location = new System.Drawing.Point(335, 131);
+            this.nameTextLabel.Location = new System.Drawing.Point(481, 131);
             this.nameTextLabel.Name = "nameTextLabel";
             this.nameTextLabel.Size = new System.Drawing.Size(145, 26);
             this.nameTextLabel.TabIndex = 8;
@@ -132,7 +135,7 @@
             // nameTextBox
             // 
             this.nameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameTextBox.Location = new System.Drawing.Point(285, 160);
+            this.nameTextBox.Location = new System.Drawing.Point(431, 160);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(241, 26);
             this.nameTextBox.TabIndex = 9;
@@ -142,18 +145,54 @@
             // 
             this.enterNameWarningLabel.AutoSize = true;
             this.enterNameWarningLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.enterNameWarningLabel.Location = new System.Drawing.Point(309, 189);
+            this.enterNameWarningLabel.Location = new System.Drawing.Point(455, 189);
             this.enterNameWarningLabel.Name = "enterNameWarningLabel";
             this.enterNameWarningLabel.Size = new System.Drawing.Size(202, 21);
             this.enterNameWarningLabel.TabIndex = 10;
             this.enterNameWarningLabel.Text = "Please select a name first";
             this.enterNameWarningLabel.Visible = false;
             // 
+            // enterNameWarningLabel2
+            // 
+            this.enterNameWarningLabel2.AutoSize = true;
+            this.enterNameWarningLabel2.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.enterNameWarningLabel2.Location = new System.Drawing.Point(133, 189);
+            this.enterNameWarningLabel2.Name = "enterNameWarningLabel2";
+            this.enterNameWarningLabel2.Size = new System.Drawing.Size(202, 21);
+            this.enterNameWarningLabel2.TabIndex = 13;
+            this.enterNameWarningLabel2.Text = "Please select a name first";
+            this.enterNameWarningLabel2.Visible = false;
+            this.enterNameWarningLabel2.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // playerNameTextBox
+            // 
+            this.playerNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playerNameTextBox.Location = new System.Drawing.Point(109, 160);
+            this.playerNameTextBox.Name = "playerNameTextBox";
+            this.playerNameTextBox.Size = new System.Drawing.Size(241, 26);
+            this.playerNameTextBox.TabIndex = 12;
+            this.playerNameTextBox.Text = "";
+            this.playerNameTextBox.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            // 
+            // playerNameLabel
+            // 
+            this.playerNameLabel.AutoSize = true;
+            this.playerNameLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playerNameLabel.Location = new System.Drawing.Point(159, 131);
+            this.playerNameLabel.Name = "playerNameLabel";
+            this.playerNameLabel.Size = new System.Drawing.Size(175, 26);
+            this.playerNameLabel.TabIndex = 11;
+            this.playerNameLabel.Text = "Enter Your Name";
+            this.playerNameLabel.Click += new System.EventHandler(this.label2_Click);
+            // 
             // StartMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.enterNameWarningLabel2);
+            this.Controls.Add(this.playerNameTextBox);
+            this.Controls.Add(this.playerNameLabel);
             this.Controls.Add(this.enterNameWarningLabel);
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.nameTextLabel);
@@ -184,5 +223,8 @@
         private System.Windows.Forms.Label nameTextLabel;
         private System.Windows.Forms.RichTextBox nameTextBox;
         private System.Windows.Forms.Label enterNameWarningLabel;
+        private System.Windows.Forms.Label enterNameWarningLabel2;
+        private System.Windows.Forms.RichTextBox playerNameTextBox;
+        private System.Windows.Forms.Label playerNameLabel;
     }
 }

@@ -17,6 +17,7 @@ namespace KeepItAliveProject
         Rectangle DestRect;
 
         Size CurrentSpriteSize;
+        Size AdjustedSpriteSize;
 
         int NumberOfSprites;
         int CurrentSpriteNumber;
@@ -31,6 +32,8 @@ namespace KeepItAliveProject
         uint healthPoint;
         int happinessLevel;
         int hungerLevel;
+
+        int spriteScale = 4;
 
         public void SetStyle(StyleOfCreature style) { Style = style; }
         public void SetName(string name) { creatureName = name; }
@@ -51,18 +54,22 @@ namespace KeepItAliveProject
 
         public Creature()
         {
-            CurrentBitmap = new Bitmap(@"Images\Ramona-Idle.PNG");
-            CurrentSpriteSize = new Size(33, 66); //width height single sprite
+            CurrentBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
+            CurrentSpriteSize = new Size(107, 93); //width height single sprite
+
+            
+            AdjustedSpriteSize = new Size(CurrentSpriteSize.Width * spriteScale, CurrentSpriteSize.Height * spriteScale);
+
             SpritePosition = new Point(0, 0);
-            Position.X = 200;
-            Position.Y = 300;
+            Position.X = 150;
+            Position.Y = 100;
             CurrentSpriteNumber = 0;
-            NumberOfSprites = 5;
+            NumberOfSprites = 3;
 
             SourceRect = new Rectangle(SpritePosition, CurrentSpriteSize);
-            DestRect = new Rectangle(Position, CurrentSpriteSize);
-
-            healthPoint = 10;
+            DestRect = new Rectangle(Position, AdjustedSpriteSize);
+            
+            healthPoint = 10; //eventually health point will switch to 100 and they will be the players hp
             happinessLevel = 5;
             hungerLevel = 6;
 
@@ -78,7 +85,28 @@ namespace KeepItAliveProject
         {
             //update variables (state machine)
 
+            if (hungerLevel <= 4)
+            {
+                //decay happiness
+            }
 
+
+            if (happinessLevel <= 3)
+            {
+                if (happinessLevel < 2)
+                {
+                    //angry
+                }
+                else
+                {
+                    //grumpy
+                }
+            }
+
+            if (healthPoint < 0)
+            {
+                //dead
+            }
 
             //update sprite pack
             switch(CurrentAnimationState)
@@ -105,13 +133,24 @@ namespace KeepItAliveProject
             if (CurrentSpriteNumber > NumberOfSprites)
                 CurrentSpriteNumber = 0;
 
-            //update sprite size
 
-            //update bitmap
+            //update sprite position on sheet
+            UpdateRects();
+
+        }
+
+
+        public void UpdateRects()
+        {
             SpritePosition.X = CurrentSpriteSize.Width * CurrentSpriteNumber;
             SourceRect.Size = CurrentSpriteSize;
             SourceRect.Location = SpritePosition;
+
+            AdjustedSpriteSize.Width = CurrentSpriteSize.Width * spriteScale;
+            AdjustedSpriteSize.Height = CurrentSpriteSize.Height * spriteScale;
+
             DestRect.Location = Position;
+            DestRect.Size = AdjustedSpriteSize;
         }
     }
 }

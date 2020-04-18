@@ -15,6 +15,7 @@ namespace KeepItAliveProject
     {
         GameForm game;
         string name;
+        string playerName;
 
         public StyleOfCreature selectedStyle;
 
@@ -27,19 +28,34 @@ namespace KeepItAliveProject
         private void startButton_Click(object sender, EventArgs e)
         {
             name = nameTextBox.Text;
+            playerName = playerNameTextBox.Text;
 
             if(!string.IsNullOrEmpty(name))
             {
-                if (selectedStyle != StyleOfCreature.None)
+                if (!string.IsNullOrEmpty(playerName))
                 {
-                    game = new GameForm(selectedStyle, name);
-                    game.ShowDialog();
+                    if (selectedStyle != StyleOfCreature.None)
+                    {
+                        game = new GameForm(selectedStyle, name);
+                        game.ShowDialog();
 
-                    this.Close();
+                        warningLabel.Visible = false;
+                        enterNameWarningLabel.Visible = false;
+                        enterNameWarningLabel2.Visible = false;
+
+                        this.Close();
+                    }
+                    else
+                    {
+                        warningLabel.Visible = true;
+                    }
                 }
                 else
                 {
-                    warningLabel.Visible = true;
+                    enterNameWarningLabel2.Visible = true;
+
+                    if (selectedStyle == StyleOfCreature.None)
+                        warningLabel.Visible = true;
                 }
             }
             else
@@ -48,8 +64,16 @@ namespace KeepItAliveProject
 
                 if (selectedStyle == StyleOfCreature.None)
                     warningLabel.Visible = true;
+
+                if (string.IsNullOrEmpty(playerName))
+                    enterNameWarningLabel2.Visible = true;
             }
-            
+
+            enterNameWarningLabel2.Visible = string.IsNullOrEmpty(playerName);
+            enterNameWarningLabel.Visible = string.IsNullOrEmpty(name);
+            warningLabel.Visible = selectedStyle == StyleOfCreature.None ? true : false;
+
+
         }
 
         private void gothColourButton_Click(object sender, EventArgs e)
@@ -100,6 +124,21 @@ namespace KeepItAliveProject
         }
 
         private void StartMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
