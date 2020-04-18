@@ -11,8 +11,6 @@ using Commons;
 
 namespace KeepItAliveProject
 {
-    
-
     public partial class StartMenu : Form
     {
         GameForm game;
@@ -30,6 +28,10 @@ namespace KeepItAliveProject
             {
                 game = new GameForm(selectedStyle);
                 game.ShowDialog();
+            }
+            else
+            {
+                warningLabel.Visible = true;
             }
         }
 
