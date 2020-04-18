@@ -44,7 +44,7 @@ namespace KeepItAliveProject
 
         private void petButton_Click(object sender, EventArgs e)
         {
-            creature.pet();
+            creature.Pet();
 
             if (tutorialLabel.Visible)
             {

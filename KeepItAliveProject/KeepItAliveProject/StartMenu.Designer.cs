@@ -104,12 +104,12 @@
             // gameTitleLabel
             // 
             this.gameTitleLabel.AutoSize = true;
-            this.gameTitleLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gameTitleLabel.Location = new System.Drawing.Point(242, 70);
+            this.gameTitleLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameTitleLabel.Location = new System.Drawing.Point(184, 37);
             this.gameTitleLabel.Name = "gameTitleLabel";
-            this.gameTitleLabel.Size = new System.Drawing.Size(336, 46);
+            this.gameTitleLabel.Size = new System.Drawing.Size(450, 64);
             this.gameTitleLabel.TabIndex = 6;
-            this.gameTitleLabel.Text = "Title Of The Game";
+            this.gameTitleLabel.Text = "Keep Them Alive!";
             // 
             // warningLabel
             // 
@@ -126,18 +126,18 @@
             // 
             this.nameTextLabel.AutoSize = true;
             this.nameTextLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameTextLabel.Location = new System.Drawing.Point(481, 131);
+            this.nameTextLabel.Location = new System.Drawing.Point(468, 131);
             this.nameTextLabel.Name = "nameTextLabel";
-            this.nameTextLabel.Size = new System.Drawing.Size(145, 26);
+            this.nameTextLabel.Size = new System.Drawing.Size(182, 26);
             this.nameTextLabel.TabIndex = 8;
-            this.nameTextLabel.Text = "Enter A Name";
+            this.nameTextLabel.Text = "Enter A Pet Name";
             // 
             // nameTextBox
             // 
             this.nameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameTextBox.Location = new System.Drawing.Point(431, 160);
+            this.nameTextBox.Location = new System.Drawing.Point(439, 160);
             this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(241, 26);
+            this.nameTextBox.Size = new System.Drawing.Size(258, 26);
             this.nameTextBox.TabIndex = 9;
             this.nameTextBox.Text = "";
             // 
@@ -178,7 +178,7 @@
             // 
             this.playerNameLabel.AutoSize = true;
             this.playerNameLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playerNameLabel.Location = new System.Drawing.Point(159, 131);
+            this.playerNameLabel.Location = new System.Drawing.Point(146, 131);
             this.playerNameLabel.Name = "playerNameLabel";
             this.playerNameLabel.Size = new System.Drawing.Size(175, 26);
             this.playerNameLabel.TabIndex = 11;

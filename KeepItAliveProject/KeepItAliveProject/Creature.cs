@@ -12,11 +12,18 @@ namespace KeepItAliveProject
     class Creature
     {
         Bitmap CurrentBitmap;
+
         Bitmap IdleBitmap;
+
         Bitmap EatingBitmap;
         Bitmap TickeledBitmap;
         Bitmap PettingBitmap;
 
+        Bitmap HungryBitmap;
+        Bitmap HappyBitmap;
+        Bitmap LowHPBitmap;
+        Bitmap SadBitmap;
+        Bitmap AngryBitmap;
 
         Rectangle SourceRect;
         Rectangle DestRect;
@@ -70,6 +77,12 @@ namespace KeepItAliveProject
             TickeledBitmap = new Bitmap(@"Images\Tickeled.PNG");
             PettingBitmap = new Bitmap(@"Images\Pet.PNG");
 
+            HungryBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
+            HappyBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
+            LowHPBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
+            SadBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
+            AngryBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
+
             CurrentBitmap = IdleBitmap;
             CurrentSpriteSize = new Size(107, 93); //width height single sprite
 
@@ -103,45 +116,9 @@ namespace KeepItAliveProject
 
         public void Update(object sender, EventArgs e)
         {
-            //update variables (state machine)
-            
+            ProcessEvents();
 
-            if (hungerLevel <= 4)
-            {
-                //decay happiness
-                CurrentAnimationState = AnimationState.Idle;
-            }
-
-
-            if (happinessLevel <= 3)
-            {
-                if (happinessLevel < 2)
-                {
-                    //angry
-                    CurrentAnimationState = AnimationState.Idle;
-                }
-                else
-                {
-                    //grumpy
-                    CurrentAnimationState = AnimationState.Idle;
-                }
-            }
-
-            if (healthPoint < 0)
-            {
-                //dead
-                CurrentAnimationState = AnimationState.Idle;
-            }
-
-            sentienceLevel += 0.1;
-
-            if(sentienceLevel >= 100)
-            {
-                //its time
-                Console.Write("scream");
-            }
-
-            if(PreviousAnimationState != CurrentAnimationState)
+            if(PreviousAnimationState != CurrentAnimationState && temporaryAnimationLoop == 0)
             {
                 PreviousAnimationState = CurrentAnimationState;
                 //update sprite pack
@@ -156,6 +133,7 @@ namespace KeepItAliveProject
                         break;
 
                     case AnimationState.Happy:
+                        CurrentBitmap = HappyBitmap;
                         CurrentSpriteNumber = 0;
                         NumberOfSprites = 3;
                         CurrentSpriteSize.Width = 107;
@@ -163,6 +141,7 @@ namespace KeepItAliveProject
                         break;
 
                     case AnimationState.Hungry:
+                        CurrentBitmap = HappyBitmap;
                         CurrentSpriteNumber = 0;
                         NumberOfSprites = 3;
                         CurrentSpriteSize.Width = 107;
@@ -170,6 +149,7 @@ namespace KeepItAliveProject
                         break;
 
                     case AnimationState.LowHP:
+                        CurrentBitmap = LowHPBitmap;
                         CurrentSpriteNumber = 0;
                         NumberOfSprites = 3;
                         CurrentSpriteSize.Width = 107;
@@ -231,22 +211,16 @@ namespace KeepItAliveProject
                         break;
                 }
 
-
                 if (temporaryAnimationLoop > 4)
                 {
                     CurrentAnimationState = AnimationState.Idle;
                     temporaryAnimationLoop = 0;
                 }
-
                 CurrentSpriteNumber = 0;
             }
                
-
-            
-
             //update sprite position on sheet
             UpdateRects();
-
         }
 
 
@@ -274,9 +248,57 @@ namespace KeepItAliveProject
             CurrentAnimationState = AnimationState.Eating;
         }
 
-        public void pet()
+        public void Pet()
         {
             CurrentAnimationState = AnimationState.Pet;
+        }
+
+        public void ProcessEvents()
+        {
+            //update variables (state machine)
+            sentienceLevel += 0.1;
+
+            if (sentienceLevel >= 100)
+            {
+                //its time
+                Console.Write("scream");
+            }
+
+            if (temporaryAnimationLoop > 4)
+            {
+                //currentanimation state was successful e.g tickle, process this
+            }
+
+            if (hungerLevel <= 4)
+            {
+                //decay happiness
+                CurrentAnimationState = AnimationState.Hungry;
+                //if hungry and tickle is attemped, hapiness goes down
+            }
+
+
+            if (happinessLevel <= 3)
+            {
+                if (happinessLevel < 2)
+                {
+                    //angry
+                    CurrentAnimationState = AnimationState.Angry;
+                }
+                else
+                {
+                    //grumpy
+                    CurrentAnimationState = AnimationState.Sad;
+                }
+            }
+
+            if (healthPoint < 3)
+            {
+                //hp goes down when hungry and unhappy
+                CurrentAnimationState = AnimationState.LowHP;
+            }
+
+            if (happinessLevel > 7)
+                CurrentAnimationState = AnimationState.Happy;
         }
     }
 }
