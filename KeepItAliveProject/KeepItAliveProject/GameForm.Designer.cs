@@ -79,7 +79,7 @@
             // 
             this.creatureNameBox.AutoSize = true;
             this.creatureNameBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.creatureNameBox.Location = new System.Drawing.Point(40, 34);
+            this.creatureNameBox.Location = new System.Drawing.Point(21, 34);
             this.creatureNameBox.Name = "creatureNameBox";
             this.creatureNameBox.Size = new System.Drawing.Size(183, 26);
             this.creatureNameBox.TabIndex = 3;
@@ -90,7 +90,7 @@
             // 
             this.hpLabel.AutoSize = true;
             this.hpLabel.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hpLabel.Location = new System.Drawing.Point(38, 83);
+            this.hpLabel.Location = new System.Drawing.Point(19, 83);
             this.hpLabel.Name = "hpLabel";
             this.hpLabel.Size = new System.Drawing.Size(49, 28);
             this.hpLabel.TabIndex = 4;
@@ -100,7 +100,7 @@
             // 
             this.hapinessLabel.AutoSize = true;
             this.hapinessLabel.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hapinessLabel.Location = new System.Drawing.Point(40, 131);
+            this.hapinessLabel.Location = new System.Drawing.Point(21, 131);
             this.hapinessLabel.Name = "hapinessLabel";
             this.hapinessLabel.Size = new System.Drawing.Size(127, 28);
             this.hapinessLabel.TabIndex = 5;
@@ -110,7 +110,7 @@
             // 
             this.hungerLabel.AutoSize = true;
             this.hungerLabel.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hungerLabel.Location = new System.Drawing.Point(40, 179);
+            this.hungerLabel.Location = new System.Drawing.Point(21, 179);
             this.hungerLabel.Name = "hungerLabel";
             this.hungerLabel.Size = new System.Drawing.Size(98, 28);
             this.hungerLabel.TabIndex = 6;
