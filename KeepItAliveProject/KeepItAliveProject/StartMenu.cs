@@ -90,7 +90,7 @@ namespace KeepItAliveProject
 
         private void referenceColourButton_Click(object sender, EventArgs e)
         {
-            selectedStyle = StyleOfCreature.Reference;
+            selectedStyle = StyleOfCreature.Strange;
             highlightSelectedStyle(selectedStyle);
         }
 
@@ -110,7 +110,7 @@ namespace KeepItAliveProject
                     pastelColourButton.BackColor = Color.White;
                     break;
 
-                case StyleOfCreature.Reference:
+                case StyleOfCreature.Strange:
                     referenceColourButton.BackColor = Color.AliceBlue;
                     gothColourButton.BackColor = Color.White;
                     pastelColourButton.BackColor = Color.White;

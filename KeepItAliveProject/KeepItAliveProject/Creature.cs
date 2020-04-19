@@ -44,24 +44,33 @@ namespace KeepItAliveProject
         Point SpritePosition;
         Point BackgroundPosition;
 
-        StyleOfCreature Style;
+        StyleOfCreature StyleOfCreature;
         AnimationState CurrentAnimationState;
         AnimationState PreviousAnimationState;
 
         string creatureName;
+
         uint healthPoint;
+
         int happinessLevel;
         int hungerLevel;
+
+        double happinessIncrementer;
+        double hungerIncrementer;
+        double healthDecrementer;
+
         double sentienceLevel;
         double boredomLevel;
+
+
         int temporaryAnimationLoop;
         bool temporaryAnimationLoopActive = false;
 
         public double GetSentienceLevel() { return sentienceLevel; }
 
-        int spriteScale = 4;
+        int spriteScale = 3;
 
-        public void SetStyle(StyleOfCreature style) { Style = style; }
+        public void SetStyle(StyleOfCreature style) { StyleOfCreature = style; }
         public void SetName(string name) { creatureName = name; }
         public string GetName() { return creatureName; }
         public void ReduceHealth(uint amount) { healthPoint -= amount; }
@@ -78,22 +87,71 @@ namespace KeepItAliveProject
 
 
 
-        public Creature()
+        public Creature(StyleOfCreature style)
         {
-            IdleBitmap = new Bitmap(@"Images\Goth-Idle.PNG");
-            EatingBitmap = new Bitmap(@"Images\Goth-Eating.PNG");
-            TickeledBitmap = new Bitmap(@"Images\Goth-Tickle.PNG");
-            PettingBitmap = new Bitmap(@"Images\Goth-Pet.PNG");
-            RefuseBitmap = new Bitmap(@"Images\Goth-Refuse.PNG");
+
+            StyleOfCreature = style;
+
+            switch (StyleOfCreature)
+            {
+                case StyleOfCreature.Goth:
+                    IdleBitmap = new Bitmap(@"Images\Goth-Idle.PNG");
+                    EatingBitmap = new Bitmap(@"Images\Goth-Eating.PNG");
+                    TickeledBitmap = new Bitmap(@"Images\Goth-Tickle.PNG");
+                    PettingBitmap = new Bitmap(@"Images\Goth-Pet.PNG");
+                    RefuseBitmap = new Bitmap(@"Images\Goth-Refuse.PNG");
+
+                    HungryBitmap = new Bitmap(@"Images\Goth-Hungry-Idle.PNG");
+                    HappyBitmap = new Bitmap(@"Images\Goth-Happy-Idle.PNG");
+                    LowHPBitmap = new Bitmap(@"Images\Goth-Low-HP.PNG");
+                    SadBitmap = new Bitmap(@"Images\Goth-Sad-Idle.PNG");
+                    AngryBitmap = new Bitmap(@"Images\Goth-Angry-Idle.PNG");
+                    break;
+
+                case StyleOfCreature.Pastel:
+                    IdleBitmap = new Bitmap(@"Images\Pastel-Idle.PNG");
+                    EatingBitmap = new Bitmap(@"Images\Pastel-Eating.PNG");
+                    TickeledBitmap = new Bitmap(@"Images\Pastel-Tickle.PNG");
+                    PettingBitmap = new Bitmap(@"Images\Pastel-Pet.PNG");
+                    RefuseBitmap = new Bitmap(@"Images\Pastel-Refuse.PNG");
+
+                    HungryBitmap = new Bitmap(@"Images\Pastel-Hungry-Idle.PNG");
+                    HappyBitmap = new Bitmap(@"Images\Pastel-Happy-Idle.PNG");
+                    LowHPBitmap = new Bitmap(@"Images\Pastel-Low-HP.PNG");
+                    SadBitmap = new Bitmap(@"Images\Pastel-Sad-Idle.PNG");
+                    AngryBitmap = new Bitmap(@"Images\Pastel-Angry-Idle.PNG");
+                    break;
+
+                case StyleOfCreature.Strange:
+                    IdleBitmap = new Bitmap(@"Images\Strange-Idle.PNG");
+                    EatingBitmap = new Bitmap(@"Images\Strange-Eating.PNG");
+                    TickeledBitmap = new Bitmap(@"Images\Strange-Tickle.PNG");
+                    PettingBitmap = new Bitmap(@"Images\Strange-Pet.PNG");
+                    RefuseBitmap = new Bitmap(@"Images\Strange-Refuse.PNG");
+
+                    HungryBitmap = new Bitmap(@"Images\Strange-Hungry-Idle.PNG");
+                    HappyBitmap = new Bitmap(@"Images\Strange-Happy-Idle.PNG");
+                    LowHPBitmap = new Bitmap(@"Images\Strange-Low-HP.PNG");
+                    SadBitmap = new Bitmap(@"Images\Strange-Sad-Idle.PNG");
+                    AngryBitmap = new Bitmap(@"Images\Strange-Angry-Idle.PNG");
+                    break;
+
+                default:
+                    IdleBitmap = new Bitmap(@"Images\Goth-Idle.PNG");
+                    EatingBitmap = new Bitmap(@"Images\Goth-Eating.PNG");
+                    TickeledBitmap = new Bitmap(@"Images\Goth-Tickle.PNG");
+                    PettingBitmap = new Bitmap(@"Images\Goth-Pet.PNG");
+                    RefuseBitmap = new Bitmap(@"Images\Goth-Refuse.PNG");
+
+                    HungryBitmap = new Bitmap(@"Images\Goth-Hungry-Idle.PNG");
+                    HappyBitmap = new Bitmap(@"Images\Goth-Happy-Idle.PNG");
+                    LowHPBitmap = new Bitmap(@"Images\Goth-Low-HP.PNG");
+                    SadBitmap = new Bitmap(@"Images\Goth-Sad-Idle.PNG");
+                    AngryBitmap = new Bitmap(@"Images\Goth-Angry-Idle.PNG");
+                    break;
+            }            
 
             CurrentBackground = new Bitmap(@"Images\Background-Basic-Room.PNG");
-
-            HungryBitmap = new Bitmap(@"Images\Goth-Hungry-Idle.PNG");
-            HappyBitmap = new Bitmap(@"Images\Goth-Happy-Idle.PNG");
-            LowHPBitmap = new Bitmap(@"Images\Goth-Low-HP.PNG");
-            SadBitmap = new Bitmap(@"Images\Goth-Sad-Idle.PNG");
-            AngryBitmap = new Bitmap(@"Images\Goth-Angry-Idle.PNG");
-            
 
             CurrentBitmap = IdleBitmap;
             CurrentSpriteSize = new Size(110, 93); //width height single sprite
@@ -107,19 +165,25 @@ namespace KeepItAliveProject
             AdjustedSpriteSize = new Size(CurrentSpriteSize.Width * spriteScale, CurrentSpriteSize.Height * spriteScale);
 
             SpritePosition = new Point(0, 0);
-            Position.X = 150;
-            Position.Y = 70;
+            Position.X = 200;
+            Position.Y = 150;
             CurrentSpriteNumber = 0;
             NumberOfSprites = 3;
 
             SourceRect = new Rectangle(SpritePosition, CurrentSpriteSize);
             DestRect = new Rectangle(Position, AdjustedSpriteSize);
             
-            healthPoint = 1; //eventually health point will switch to 100 and they will be the players hp
-            happinessLevel = 6;
-            hungerLevel = 1;
+            healthPoint = 5; //eventually health point will switch to 100 and they will be the players hp
+
+            happinessLevel = 5;
+            hungerLevel = 5;
+            happinessIncrementer = 0;
+            hungerIncrementer = 0;
+            healthDecrementer = 0;
+
             sentienceLevel = 0;
             boredomLevel = 0;
+
             temporaryAnimationLoop = 0;
             temporaryAnimationLoopActive = false;
 
@@ -136,7 +200,6 @@ namespace KeepItAliveProject
 
         public void Update(object sender, EventArgs e)
         {
-           // PreviousAnimationState = CurrentAnimationState;
             CurrentAnimationState = ProcessEvents();
 
             if (PreviousAnimationState != CurrentAnimationState && !temporaryAnimationLoopActive)
@@ -333,33 +396,66 @@ namespace KeepItAliveProject
         {
             AnimationState animationState = CurrentAnimationState;
 
-            //update variables (state machine)
-            sentienceLevel += 0.1;
+            happinessIncrementer++;
+            hungerIncrementer++;
 
-            if (sentienceLevel >= 100)
+            if (happinessIncrementer == 50)
+            {
+                happinessLevel--;
+                happinessIncrementer = 0;
+            }
+
+            if (hungerIncrementer == 60)
+            {
+                hungerLevel++;
+                hungerIncrementer = 0;
+            }
+
+            if(healthDecrementer == 20)
+            {
+                healthPoint--;
+                healthDecrementer = 0;
+            }
+
+            //update variables (state machine)
+            sentienceLevel++;
+
+            if (sentienceLevel == 1000)
             {
                 //its time
                 Console.Write("scream");
             }
 
-            //caps 
-            if (healthPoint > 10)
-                healthPoint = 10;
+            if (sentienceLevel == 200)
+                SwitchBackground(2);
 
-            if (hungerLevel > 10)
-                hungerLevel = 10;
+            if (sentienceLevel == 300)
+                SwitchBackground(3);
 
-            if (happinessLevel < 0)
-                happinessLevel = 0;
+            if (sentienceLevel == 400)
+                SwitchBackground(4);
 
-            if (happinessLevel > 10)
-                happinessLevel = 10;
+            if (sentienceLevel == 500)
+                SwitchBackground(5);
 
-            if (boredomLevel < 0)
-                boredomLevel = 0;
+            if (sentienceLevel == 600)
+                SwitchBackground(6);
 
-            if (boredomLevel > 10)
-                boredomLevel = 10;
+            if (sentienceLevel == 700)
+                SwitchBackground(7);
+
+            if (sentienceLevel == 800)
+                SwitchBackground(8);
+
+            if (sentienceLevel == 900)
+                SwitchBackground(9);
+
+            if (sentienceLevel == 1000)
+                SwitchBackground(10);
+
+            
+
+            
 
             if (CurrentAnimationState != AnimationState.Tickeled && CurrentAnimationState != AnimationState.Eating
                && CurrentAnimationState != AnimationState.Pet && CurrentAnimationState != AnimationState.Refuse)
@@ -371,6 +467,7 @@ namespace KeepItAliveProject
                     if (hungerLevel >= 9)
                     {
                         animationState = AnimationState.Angry;
+                        healthDecrementer++;
                     }
                     else
                     {
@@ -379,6 +476,8 @@ namespace KeepItAliveProject
                 }
                 else if (hungerLevel > 4)
                 {
+                    healthDecrementer = 0;
+
                     if (happinessLevel < 5)
                     {
                         animationState = AnimationState.Sad;
@@ -390,6 +489,8 @@ namespace KeepItAliveProject
                 }
                 else
                 {
+                    healthDecrementer = 0;
+
                     if (happinessLevel >= 5)
                     {
                         if (boredomLevel <= 5)
@@ -410,77 +511,89 @@ namespace KeepItAliveProject
                 if (healthPoint <= 1)
                 {
                     animationState = AnimationState.LowHP;
+
+
+                    if(healthPoint == 0)
+                    {
+                        //game over
+                    }
                 }
             }
 
-            return animationState;
+            //caps 
+            if (healthPoint > 10)
+                healthPoint = 10;
 
-            /*
-            if (temporaryAnimationLoopActive && temporaryAnimationLoop == 3)
+            if (healthPoint < 0)
+                healthPoint = 0;
+
+            if (hungerLevel > 10)
+                hungerLevel = 10;
+
+            if (happinessLevel < 0)
+                happinessLevel = 0;
+
+            if (happinessLevel > 10)
+                happinessLevel = 10;
+
+            if (boredomLevel > 10)
+                boredomLevel = 10;
+
+            if (boredomLevel < 0)
+                boredomLevel = 0;
+
+            
+
+            return animationState;   
+        }
+
+        public void SwitchBackground(int num)
+        {
+            switch(num)
             {
-                //currentanimation state was successful e.g tickle, process this
+                case 1:
+                    CurrentBackground = new Bitmap(@"Images\Background-Basic-Room.PNG");
+                    break;
 
-                switch (CurrentAnimationState)
-                {
-                    case AnimationState.Eating:
-                        //if hungry increase happiness
-                        //if full decrease happinessand increase boredom
-                        if (hungerLevel == 0)
-                        {
-                            happinessLevel--;
-                        }
-                        else
-                        {
-                            if (hungerLevel >= 7)
-                            {
-                                hungerLevel--;
-                                happinessLevel++;
-                            }
-                            else
-                            {
-                                hungerLevel--;
-                            }
-                        }
+                case 2:
+                    CurrentBackground = new Bitmap(@"Images\Background-Basic-Room-Vr2.PNG");
+                    break;
 
-                        break;
+                case 3:
+                    CurrentBackground = new Bitmap(@"Images\Background-Basic-Room-Vr3.PNG");
+                    break;
 
-                    case AnimationState.Pet:
-                        //if hungry hapiness decrease
-                        //else increase hapiness 
-                        if (hungerLevel >= 7)
-                        {
-                            happinessLevel--;
-                        }
-                        else
-                        {
-                            happinessLevel++;
-                        }
+                case 4:
+                    CurrentBackground = new Bitmap(@"Images\Background-Basic-Room-Vr4.PNG");
+                    break;
 
-                        break;
+                case 5:
+                    CurrentBackground = new Bitmap(@"Images\Background-Basic-Room-Vr5.PNG");
+                    break;
 
-                    case AnimationState.Tickeled:
-                        //if hungry hapiness decrease and increase hunger
-                        //else increase hapiness and reduce boredom
-                        if (hungerLevel >= 7)
-                        {
-                            happinessLevel--;
-                            hungerLevel++;
-                        }
-                        else
-                        {
-                            happinessLevel++;
-                            boredomLevel--;
-                        }
+                case 6:
+                    CurrentBackground = new Bitmap(@"Images\Background-Basic-Room-Vr6.PNG");
+                    break;
 
-                        break;
+                case 7:
+                    CurrentBackground = new Bitmap(@"Images\Background-Basic-Room-Vr7.PNG");
+                    break;
 
-                    default:
-                        break;
-                }
+                case 8:
+                    CurrentBackground = new Bitmap(@"Images\Background-Basic-Room-Vr8.PNG");
+                    break;
 
-            }*/
-                
-               
+                case 9:
+                    CurrentBackground = new Bitmap(@"Images\Background-Basic-Room-Vr9.PNG");
+                    break;
+
+                case 10:
+                    CurrentBackground = new Bitmap(@"Images\Background-Basic-Room-Vr10.PNG");
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }

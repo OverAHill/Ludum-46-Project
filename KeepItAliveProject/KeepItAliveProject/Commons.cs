@@ -2,7 +2,7 @@
 
 namespace Commons
 {
-    public enum StyleOfCreature { Pastel, Goth, Reference, None };
+    public enum StyleOfCreature { Pastel, Goth, Strange, None };
 
     public enum AnimationState { Idle, Eating, Tickeled, Pet, Refuse, Hungry, Happy, LowHP,  Sad, Angry };
 

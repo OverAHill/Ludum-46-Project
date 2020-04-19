@@ -1,6 +1,6 @@
 ﻿namespace KeepItAliveProject
 {
-    partial class Form1
+    partial class GameOverMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.gameOverLable = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // trackBar1
+            // gameOverLable
             // 
-            this.trackBar1.Location = new System.Drawing.Point(359, 323);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(104, 45);
-            this.trackBar1.TabIndex = 0;
-            this.trackBar1.Value = 10;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.gameOverLable.AutoSize = true;
+            this.gameOverLable.Font = new System.Drawing.Font("Microsoft YaHei UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameOverLable.Location = new System.Drawing.Point(216, 174);
+            this.gameOverLable.Name = "gameOverLable";
+            this.gameOverLable.Size = new System.Drawing.Size(325, 64);
+            this.gameOverLable.TabIndex = 0;
+            this.gameOverLable.Text = "GAME OVER";
+            this.gameOverLable.Click += new System.EventHandler(this.label1_Click);
             // 
-            // Form1
+            // GameOverMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.trackBar1);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.Controls.Add(this.gameOverLable);
+            this.Name = "GameOverMenu";
+            this.Text = "GameOverMenu";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -57,7 +57,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label gameOverLable;
     }
 }
-

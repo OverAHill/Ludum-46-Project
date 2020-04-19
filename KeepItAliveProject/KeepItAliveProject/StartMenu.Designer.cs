@@ -87,7 +87,7 @@
             this.referenceColourButton.Name = "referenceColourButton";
             this.referenceColourButton.Size = new System.Drawing.Size(135, 44);
             this.referenceColourButton.TabIndex = 4;
-            this.referenceColourButton.Text = "Reference";
+            this.referenceColourButton.Text = "Strange";
             this.referenceColourButton.UseVisualStyleBackColor = false;
             this.referenceColourButton.Click += new System.EventHandler(this.referenceColourButton_Click);
             // 

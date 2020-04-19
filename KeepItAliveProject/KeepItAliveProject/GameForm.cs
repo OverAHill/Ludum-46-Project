@@ -14,7 +14,8 @@ namespace KeepItAliveProject
     public partial class GameForm : Form
     {
         Creature creature;
-        
+        GameOverMenu gameOver;
+        bool gameOverFlag = false;
 
         public GameForm(StyleOfCreature style, string name)
         {
@@ -23,7 +24,7 @@ namespace KeepItAliveProject
             this.graphicTimer.Tick += new System.EventHandler(this.Update);
             graphicTimer.Start();
 
-            creature = new Creature();
+            creature = new Creature(style);
             creature.SetStyle(style);
             creature.SetName(name);
             creatureNameBox.Text = creature.GetName();
@@ -85,8 +86,19 @@ namespace KeepItAliveProject
             hapinessLabel.Text = "Happiness: " + creature.GetHappiness().ToString();
             hpLabel.Text = "HP: " + creature.GetHealth().ToString();
             hungerLabel.Text = "Hunger: " + creature.GetHunger().ToString();
+            
 
             this.Refresh();
+
+            if (creature.GetHealth() == 0 && !gameOverFlag)
+            {
+                //game over
+                gameOverFlag = true;
+                gameOver = new GameOverMenu();
+                gameOver.ShowDialog();
+                this.Dispose(true);
+                this.Close();
+            }
         }
 
         private void creatureNameBox_Click(object sender, EventArgs e)
