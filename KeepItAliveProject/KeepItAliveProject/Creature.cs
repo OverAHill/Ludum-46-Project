@@ -19,6 +19,7 @@ namespace KeepItAliveProject
         Bitmap EatingBitmap;
         Bitmap TickeledBitmap;
         Bitmap PettingBitmap;
+        Bitmap AttackBitmap;
 
         Bitmap HungryBitmap;
         Bitmap HappyBitmap;
@@ -66,6 +67,9 @@ namespace KeepItAliveProject
         int temporaryAnimationLoop;
         bool temporaryAnimationLoopActive = false;
 
+        public bool gameModeFlag = false;
+        public bool playerAttackMode = false;
+
         public double GetSentienceLevel() { return sentienceLevel; }
 
         int spriteScale = 3;
@@ -106,6 +110,8 @@ namespace KeepItAliveProject
                     LowHPBitmap = new Bitmap(@"Images\Goth-Low-HP.PNG");
                     SadBitmap = new Bitmap(@"Images\Goth-Sad-Idle.PNG");
                     AngryBitmap = new Bitmap(@"Images\Goth-Angry-Idle.PNG");
+
+                    AttackBitmap = new Bitmap(@"Images\Goth-Attack.PNG");
                     break;
 
                 case StyleOfCreature.Pastel:
@@ -120,6 +126,7 @@ namespace KeepItAliveProject
                     LowHPBitmap = new Bitmap(@"Images\Pastel-Low-HP.PNG");
                     SadBitmap = new Bitmap(@"Images\Pastel-Sad-Idle.PNG");
                     AngryBitmap = new Bitmap(@"Images\Pastel-Angry-Idle.PNG");
+                    AttackBitmap = new Bitmap(@"Images\Pastel-Attack.PNG");
                     break;
 
                 case StyleOfCreature.Strange:
@@ -134,6 +141,7 @@ namespace KeepItAliveProject
                     LowHPBitmap = new Bitmap(@"Images\Strange-Low-HP.PNG");
                     SadBitmap = new Bitmap(@"Images\Strange-Sad-Idle.PNG");
                     AngryBitmap = new Bitmap(@"Images\Strange-Angry-Idle.PNG");
+                    AttackBitmap = new Bitmap(@"Images\Strange-Attack.PNG");
                     break;
 
                 default:
@@ -148,6 +156,7 @@ namespace KeepItAliveProject
                     LowHPBitmap = new Bitmap(@"Images\Goth-Low-HP.PNG");
                     SadBitmap = new Bitmap(@"Images\Goth-Sad-Idle.PNG");
                     AngryBitmap = new Bitmap(@"Images\Goth-Angry-Idle.PNG");
+                    AttackBitmap = new Bitmap(@"Images\Goth-Attack.PNG");
                     break;
             }            
 
@@ -262,6 +271,12 @@ namespace KeepItAliveProject
                         CurrentSpriteNumber = 0;
                         break;
 
+                    case AnimationState.Attack:
+                        temporaryAnimationLoopActive = true;
+                        CurrentBitmap = AttackBitmap;
+                        CurrentSpriteNumber = 0;
+                        break;
+
 
                     default:
                         break;
@@ -291,8 +306,18 @@ namespace KeepItAliveProject
                         temporaryAnimationLoop++;
                         break;
 
+                    case AnimationState.Attack:
+                        temporaryAnimationLoop++;
+                        break;
+
                     default:
                         break;
+                }
+
+                if(temporaryAnimationLoop == 1 && CurrentAnimationState == AnimationState.Attack)
+                {
+                    if (CurrentAnimationState == AnimationState.Attack)
+                        playerAttackMode = true;
                 }
 
                 if (temporaryAnimationLoop == 4)
@@ -300,6 +325,8 @@ namespace KeepItAliveProject
                     CurrentAnimationState = AnimationState.Idle;
                     temporaryAnimationLoop = 0;
                     temporaryAnimationLoopActive = false;
+
+
                 }
                 CurrentSpriteNumber = 0;
             }
@@ -327,7 +354,7 @@ namespace KeepItAliveProject
         public void Tickle() //check if currently idle then check conditions and update stats
         {
             if(CurrentAnimationState != AnimationState.Tickeled && CurrentAnimationState != AnimationState.Eating 
-                && CurrentAnimationState != AnimationState.Pet && CurrentAnimationState != AnimationState.Refuse)
+                && CurrentAnimationState != AnimationState.Pet && CurrentAnimationState != AnimationState.Refuse && CurrentAnimationState != AnimationState.Attack)
             {
                 if(hungerLevel > 7)
                 {
@@ -347,7 +374,7 @@ namespace KeepItAliveProject
         public void Eat()
         {
             if (CurrentAnimationState != AnimationState.Tickeled && CurrentAnimationState != AnimationState.Eating
-                && CurrentAnimationState != AnimationState.Pet && CurrentAnimationState != AnimationState.Refuse)
+                && CurrentAnimationState != AnimationState.Pet && CurrentAnimationState != AnimationState.Refuse && CurrentAnimationState != AnimationState.Attack)
             {
                 if (hungerLevel == 0)
                 {
@@ -376,7 +403,7 @@ namespace KeepItAliveProject
         public void Pet()
         {
             if (CurrentAnimationState != AnimationState.Tickeled && CurrentAnimationState != AnimationState.Eating
-               && CurrentAnimationState != AnimationState.Pet && CurrentAnimationState != AnimationState.Refuse)
+               && CurrentAnimationState != AnimationState.Pet && CurrentAnimationState != AnimationState.Refuse && CurrentAnimationState != AnimationState.Attack)
             {
                 if (hungerLevel >= 7)
                 {
@@ -396,14 +423,7 @@ namespace KeepItAliveProject
         {
             AnimationState animationState = CurrentAnimationState;
 
-            happinessIncrementer++;
             hungerIncrementer++;
-
-            if (happinessIncrementer == 50)
-            {
-                happinessLevel--;
-                happinessIncrementer = 0;
-            }
 
             if (hungerIncrementer == 60)
             {
@@ -411,54 +431,66 @@ namespace KeepItAliveProject
                 hungerIncrementer = 0;
             }
 
-            if(healthDecrementer == 20)
+            if (!gameModeFlag)
             {
-                healthPoint--;
-                healthDecrementer = 0;
+                happinessIncrementer++;
+                
+
+                if (happinessIncrementer == 50)
+                {
+                    happinessLevel--;
+                    happinessIncrementer = 0;
+                }
+
+                
+
+                if (healthDecrementer == 20)
+                {
+                    healthPoint--;
+                    healthDecrementer = 0;
+                }
+
+                //update variables (state machine)
+                sentienceLevel++;
+
+                if (sentienceLevel == 1000)
+                {
+                    //its time
+                    Console.Write("scream");
+                }
+
+                if (sentienceLevel == 200)
+                    SwitchBackground(2);
+
+                if (sentienceLevel == 300)
+                    SwitchBackground(3);
+
+                if (sentienceLevel == 400)
+                    SwitchBackground(4);
+
+                if (sentienceLevel == 500)
+                    SwitchBackground(5);
+
+                if (sentienceLevel == 600)
+                    SwitchBackground(6);
+
+                if (sentienceLevel == 700)
+                    SwitchBackground(7);
+
+                if (sentienceLevel == 800)
+                    SwitchBackground(8);
+
+                if (sentienceLevel == 900)
+                    SwitchBackground(9);
+
+                if (sentienceLevel == 1000)
+                    SwitchBackground(10);
             }
 
-            //update variables (state machine)
-            sentienceLevel++;
 
-            if (sentienceLevel == 1000)
-            {
-                //its time
-                Console.Write("scream");
-            }
-
-            if (sentienceLevel == 200)
-                SwitchBackground(2);
-
-            if (sentienceLevel == 300)
-                SwitchBackground(3);
-
-            if (sentienceLevel == 400)
-                SwitchBackground(4);
-
-            if (sentienceLevel == 500)
-                SwitchBackground(5);
-
-            if (sentienceLevel == 600)
-                SwitchBackground(6);
-
-            if (sentienceLevel == 700)
-                SwitchBackground(7);
-
-            if (sentienceLevel == 800)
-                SwitchBackground(8);
-
-            if (sentienceLevel == 900)
-                SwitchBackground(9);
-
-            if (sentienceLevel == 1000)
-                SwitchBackground(10);
-
-            
-
-            
 
             if (CurrentAnimationState != AnimationState.Tickeled && CurrentAnimationState != AnimationState.Eating
-               && CurrentAnimationState != AnimationState.Pet && CurrentAnimationState != AnimationState.Refuse)
+               && CurrentAnimationState != AnimationState.Pet && CurrentAnimationState != AnimationState.Refuse && CurrentAnimationState != AnimationState.Attack)
             {
                 animationState = AnimationState.Idle;
 
@@ -468,6 +500,12 @@ namespace KeepItAliveProject
                     {
                         animationState = AnimationState.Angry;
                         healthDecrementer++;
+
+                        if(gameModeFlag)
+                        {
+                            animationState = AnimationState.Attack;
+                            hungerLevel-= 2;
+                        }
                     }
                     else
                     {

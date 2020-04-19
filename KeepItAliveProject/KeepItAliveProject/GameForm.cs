@@ -15,9 +15,12 @@ namespace KeepItAliveProject
     {
         Creature creature;
         GameOverMenu gameOver;
-        bool gameOverFlag = false;
+        Player player;
 
-        public GameForm(StyleOfCreature style, string name)
+        bool gameOverFlag = false;
+        bool gameModeSwitch = false;
+        
+        public GameForm(StyleOfCreature style, string name, string pName)
         {
             InitializeComponent();
 
@@ -28,6 +31,8 @@ namespace KeepItAliveProject
             creature.SetStyle(style);
             creature.SetName(name);
             creatureNameBox.Text = creature.GetName();
+
+            player = new Player(pName, 15);
 
             this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer, true);
         }
@@ -59,6 +64,11 @@ namespace KeepItAliveProject
         {
             creature.Eat();
 
+            if(gameModeSwitch)
+            {
+                player.ReduceNumberSacrifices(1);
+            }
+
             if (tutorialLabel2.Visible)
             {
                 tutorialLabel2.Visible = false;
@@ -86,11 +96,13 @@ namespace KeepItAliveProject
             hapinessLabel.Text = "Happiness: " + creature.GetHappiness().ToString();
             hpLabel.Text = "HP: " + creature.GetHealth().ToString();
             hungerLabel.Text = "Hunger: " + creature.GetHunger().ToString();
-            
+
+            playerHealthLabel.Text = player.GetName() + "HP: " + player.GetHealth();
+            sacrifcesLabel.Text = "Sacrifices: " + player.GetNumberSacrifices();
 
             this.Refresh();
 
-            if (creature.GetHealth() == 0 && !gameOverFlag)
+            if (creature.GetHealth() == 0 && !gameOverFlag && !gameModeSwitch)
             {
                 //game over
                 gameOverFlag = true;
@@ -98,6 +110,55 @@ namespace KeepItAliveProject
                 gameOver.ShowDialog();
                 this.Dispose(true);
                 this.Close();
+            }
+
+            if(creature.playerAttackMode)
+            {
+                creature.playerAttackMode = false;
+                player.ReduceHealth(2);
+            }
+
+            if(player.GetHealth() <= 5 && player.GetHealth() >= 2)
+            {
+                //you cant win
+                youCantWinLabel.Visible = true;
+            }
+
+            if(player.GetHealth() < 2)
+            {
+                //Good bye message vis
+                youCantWinLabel.Visible = false;
+                goodbyeLabel.Visible = true;
+                //remove youy cant win message
+            }
+
+            if(player.GetHealth() <= 0 && !gameOverFlag)
+            {
+                gameOverFlag = true;
+                gameOver = new GameOverMenu();
+                gameOver.ShowDialog();
+                this.Dispose(true);
+                this.Close();
+            }
+
+            if(creature.GetSentienceLevel() >= 1000)
+            {
+                gameModeSwitch = true;
+                //disable creature update stats
+                //creature now attacks you
+                //no way to heal
+                //limited number of sacrifices
+                //sacrifices prevent attacks
+
+                creature.gameModeFlag = true;
+
+                playerHealthLabel.Visible = true;
+                sacrifcesLabel.Visible = true;
+
+                hapinessLabel.Visible = false; //disable them from reducing
+                hpLabel.Visible = false; //atacks when hungry
+
+
             }
         }
 

@@ -105,11 +105,11 @@
             // 
             this.gameTitleLabel.AutoSize = true;
             this.gameTitleLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gameTitleLabel.Location = new System.Drawing.Point(184, 37);
+            this.gameTitleLabel.Location = new System.Drawing.Point(272, 37);
             this.gameTitleLabel.Name = "gameTitleLabel";
-            this.gameTitleLabel.Size = new System.Drawing.Size(450, 64);
+            this.gameTitleLabel.Size = new System.Drawing.Size(251, 64);
             this.gameTitleLabel.TabIndex = 6;
-            this.gameTitleLabel.Text = "Keep Them Alive!";
+            this.gameTitleLabel.Text = "Feed Me!";
             // 
             // warningLabel
             // 

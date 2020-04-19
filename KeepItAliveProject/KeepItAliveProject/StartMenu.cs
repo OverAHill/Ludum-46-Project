@@ -36,7 +36,7 @@ namespace KeepItAliveProject
                 {
                     if (selectedStyle != StyleOfCreature.None)
                     {
-                        game = new GameForm(selectedStyle, name);
+                        game = new GameForm(selectedStyle, name, playerName);
                         game.ShowDialog();
 
                         warningLabel.Visible = false;
