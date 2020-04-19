@@ -78,6 +78,7 @@
             // creatureNameBox
             // 
             this.creatureNameBox.AutoSize = true;
+            this.creatureNameBox.BackColor = System.Drawing.Color.Transparent;
             this.creatureNameBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.creatureNameBox.Location = new System.Drawing.Point(21, 34);
             this.creatureNameBox.Name = "creatureNameBox";
@@ -89,6 +90,7 @@
             // hpLabel
             // 
             this.hpLabel.AutoSize = true;
+            this.hpLabel.BackColor = System.Drawing.Color.Transparent;
             this.hpLabel.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hpLabel.Location = new System.Drawing.Point(19, 83);
             this.hpLabel.Name = "hpLabel";
@@ -99,6 +101,7 @@
             // hapinessLabel
             // 
             this.hapinessLabel.AutoSize = true;
+            this.hapinessLabel.BackColor = System.Drawing.Color.Transparent;
             this.hapinessLabel.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hapinessLabel.Location = new System.Drawing.Point(21, 131);
             this.hapinessLabel.Name = "hapinessLabel";
@@ -109,6 +112,7 @@
             // hungerLabel
             // 
             this.hungerLabel.AutoSize = true;
+            this.hungerLabel.BackColor = System.Drawing.Color.Transparent;
             this.hungerLabel.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hungerLabel.Location = new System.Drawing.Point(21, 179);
             this.hungerLabel.Name = "hungerLabel";

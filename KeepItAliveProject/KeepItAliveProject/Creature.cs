@@ -12,6 +12,7 @@ namespace KeepItAliveProject
     class Creature
     {
         Bitmap CurrentBitmap;
+        Bitmap CurrentBackground;
 
         Bitmap IdleBitmap;
 
@@ -29,6 +30,10 @@ namespace KeepItAliveProject
         Rectangle SourceRect;
         Rectangle DestRect;
 
+        Rectangle BackgroundSourceRect;
+        Rectangle BackgroundDestRect;
+
+        Size BackgroundSize;
         Size CurrentSpriteSize;
         Size AdjustedSpriteSize;
 
@@ -37,6 +42,7 @@ namespace KeepItAliveProject
 
         Point Position;
         Point SpritePosition;
+        Point BackgroundPosition;
 
         StyleOfCreature Style;
         AnimationState CurrentAnimationState;
@@ -74,36 +80,44 @@ namespace KeepItAliveProject
 
         public Creature()
         {
-            IdleBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
-            EatingBitmap = new Bitmap(@"Images\Eating.PNG");
-            TickeledBitmap = new Bitmap(@"Images\Tickeled.PNG");
-            PettingBitmap = new Bitmap(@"Images\Pet.PNG");
+            IdleBitmap = new Bitmap(@"Images\Goth-Idle.PNG");
+            EatingBitmap = new Bitmap(@"Images\Goth-Eating.PNG");
+            TickeledBitmap = new Bitmap(@"Images\Goth-Tickle.PNG");
+            PettingBitmap = new Bitmap(@"Images\Goth-Pet.PNG");
+            RefuseBitmap = new Bitmap(@"Images\Goth-Refuse.PNG");
 
-            HungryBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
-            HappyBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
-            LowHPBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
-            SadBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
-            AngryBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
-            RefuseBitmap = new Bitmap(@"Images\NovPixelIdle.PNG");
+            CurrentBackground = new Bitmap(@"Images\Background-Basic-Room.PNG");
+
+            HungryBitmap = new Bitmap(@"Images\Goth-Hungry-Idle.PNG");
+            HappyBitmap = new Bitmap(@"Images\Goth-Happy-Idle.PNG");
+            LowHPBitmap = new Bitmap(@"Images\Goth-Low-HP.PNG");
+            SadBitmap = new Bitmap(@"Images\Goth-Sad-Idle.PNG");
+            AngryBitmap = new Bitmap(@"Images\Goth-Angry-Idle.PNG");
+            
 
             CurrentBitmap = IdleBitmap;
-            CurrentSpriteSize = new Size(107, 93); //width height single sprite
+            CurrentSpriteSize = new Size(110, 93); //width height single sprite
 
+            BackgroundPosition = new Point(0, 0);
+            BackgroundSize = new Size(816, 489);
+
+            BackgroundDestRect = new Rectangle(BackgroundPosition, BackgroundSize);
+            BackgroundSourceRect = new Rectangle(BackgroundPosition, BackgroundSize);
             
             AdjustedSpriteSize = new Size(CurrentSpriteSize.Width * spriteScale, CurrentSpriteSize.Height * spriteScale);
 
             SpritePosition = new Point(0, 0);
             Position.X = 150;
-            Position.Y = 100;
+            Position.Y = 70;
             CurrentSpriteNumber = 0;
             NumberOfSprites = 3;
 
             SourceRect = new Rectangle(SpritePosition, CurrentSpriteSize);
             DestRect = new Rectangle(Position, AdjustedSpriteSize);
             
-            healthPoint = 10; //eventually health point will switch to 100 and they will be the players hp
-            happinessLevel = 5;
-            hungerLevel = 6;
+            healthPoint = 1; //eventually health point will switch to 100 and they will be the players hp
+            happinessLevel = 6;
+            hungerLevel = 1;
             sentienceLevel = 0;
             boredomLevel = 0;
             temporaryAnimationLoop = 0;
@@ -116,14 +130,16 @@ namespace KeepItAliveProject
 
         public void Draw(object sender, PaintEventArgs e)
         {
+            e.Graphics.DrawImage(CurrentBackground, BackgroundDestRect, BackgroundSourceRect, GraphicsUnit.Pixel);
             e.Graphics.DrawImage(CurrentBitmap, DestRect, SourceRect, GraphicsUnit.Pixel);
         }
 
         public void Update(object sender, EventArgs e)
         {
-            ProcessEvents();
+           // PreviousAnimationState = CurrentAnimationState;
+            CurrentAnimationState = ProcessEvents();
 
-            if(PreviousAnimationState != CurrentAnimationState && !temporaryAnimationLoopActive)
+            if (PreviousAnimationState != CurrentAnimationState && !temporaryAnimationLoopActive)
             {
                 PreviousAnimationState = CurrentAnimationState;
                 //update sprite pack
@@ -132,61 +148,57 @@ namespace KeepItAliveProject
                     case AnimationState.Idle:
                         CurrentBitmap = IdleBitmap;
                         CurrentSpriteNumber = 0;
-                        NumberOfSprites = 3;
-                        CurrentSpriteSize.Width = 107;
-                        CurrentSpriteSize.Height = 93;
                         break;
 
                     case AnimationState.Happy:
                         CurrentBitmap = HappyBitmap;
                         CurrentSpriteNumber = 0;
-                        NumberOfSprites = 3;
-                        CurrentSpriteSize.Width = 107;
-                        CurrentSpriteSize.Height = 93;
+                        break;
+
+                    case AnimationState.Sad:
+                        CurrentBitmap = SadBitmap;
+                        CurrentSpriteNumber = 0;
                         break;
 
                     case AnimationState.Hungry:
-                        CurrentBitmap = HappyBitmap;
+                        CurrentBitmap = HungryBitmap;
                         CurrentSpriteNumber = 0;
-                        NumberOfSprites = 3;
-                        CurrentSpriteSize.Width = 107;
-                        CurrentSpriteSize.Height = 93;
                         break;
 
                     case AnimationState.LowHP:
                         CurrentBitmap = LowHPBitmap;
                         CurrentSpriteNumber = 0;
-                        NumberOfSprites = 3;
-                        CurrentSpriteSize.Width = 107;
-                        CurrentSpriteSize.Height = 93;
+                        break;
+
+                    case AnimationState.Angry:
+                        CurrentBitmap = AngryBitmap;
+                        CurrentSpriteNumber = 0;
                         break;
 
                     case AnimationState.Eating:
                         temporaryAnimationLoopActive = true;
                         CurrentBitmap = EatingBitmap;
                         CurrentSpriteNumber = 0;
-                        NumberOfSprites = 3;
-                        CurrentSpriteSize.Width = 107;
-                        CurrentSpriteSize.Height = 93;
                         break;
 
                     case AnimationState.Tickeled:
                         temporaryAnimationLoopActive = true;
                         CurrentBitmap = TickeledBitmap;
                         CurrentSpriteNumber = 0;
-                        NumberOfSprites = 3;
-                        CurrentSpriteSize.Width = 107;
-                        CurrentSpriteSize.Height = 93;
                         break;
 
                     case AnimationState.Pet:
                         temporaryAnimationLoopActive = true;
                         CurrentBitmap = PettingBitmap;
                         CurrentSpriteNumber = 0;
-                        NumberOfSprites = 3;
-                        CurrentSpriteSize.Width = 107;
-                        CurrentSpriteSize.Height = 93;
                         break;
+
+                    case AnimationState.Refuse:
+                        temporaryAnimationLoopActive = true;
+                        CurrentBitmap = RefuseBitmap;
+                        CurrentSpriteNumber = 0;
+                        break;
+
 
                     default:
                         break;
@@ -209,6 +221,10 @@ namespace KeepItAliveProject
                         break;
 
                     case AnimationState.Pet:
+                        temporaryAnimationLoop++;
+                        break;
+
+                    case AnimationState.Refuse:
                         temporaryAnimationLoop++;
                         break;
 
@@ -245,23 +261,78 @@ namespace KeepItAliveProject
 
 
         //put refuse in the following three functions
-        public void Tickle()
+        public void Tickle() //check if currently idle then check conditions and update stats
         {
-            CurrentAnimationState = AnimationState.Tickeled;
+            if(CurrentAnimationState != AnimationState.Tickeled && CurrentAnimationState != AnimationState.Eating 
+                && CurrentAnimationState != AnimationState.Pet && CurrentAnimationState != AnimationState.Refuse)
+            {
+                if(hungerLevel > 7)
+                {
+                    CurrentAnimationState = AnimationState.Refuse;
+                    happinessLevel--;
+                    hungerLevel++;
+                }
+                else
+                {
+                    CurrentAnimationState = AnimationState.Tickeled;
+                    happinessLevel++;
+                    boredomLevel--;
+                }               
+            }          
         }
 
         public void Eat()
         {
-            CurrentAnimationState = AnimationState.Eating;
+            if (CurrentAnimationState != AnimationState.Tickeled && CurrentAnimationState != AnimationState.Eating
+                && CurrentAnimationState != AnimationState.Pet && CurrentAnimationState != AnimationState.Refuse)
+            {
+                if (hungerLevel == 0)
+                {
+                    CurrentAnimationState = AnimationState.Refuse;
+                    happinessLevel--;
+                }
+                else
+                {
+                    CurrentAnimationState = AnimationState.Eating;
+
+                    if (hungerLevel >= 7)
+                    {
+                        hungerLevel -= 2;
+                        happinessLevel++;
+                        healthPoint++;
+                    }
+                    else
+                    {
+                        hungerLevel--;
+                        healthPoint++;
+                    }
+                }
+            } 
         }
 
         public void Pet()
         {
-            CurrentAnimationState = AnimationState.Pet;
+            if (CurrentAnimationState != AnimationState.Tickeled && CurrentAnimationState != AnimationState.Eating
+               && CurrentAnimationState != AnimationState.Pet && CurrentAnimationState != AnimationState.Refuse)
+            {
+                if (hungerLevel >= 7)
+                {
+                    CurrentAnimationState = AnimationState.Refuse;
+                    happinessLevel--;
+                }
+                else
+                {
+                    CurrentAnimationState = AnimationState.Pet;
+                    happinessLevel++;
+                    boredomLevel--;
+                }
+            }
         }
 
-        public void ProcessEvents()
+        public AnimationState ProcessEvents() //determin which idle state
         {
+            AnimationState animationState = CurrentAnimationState;
+
             //update variables (state machine)
             sentienceLevel += 0.1;
 
@@ -271,6 +342,80 @@ namespace KeepItAliveProject
                 Console.Write("scream");
             }
 
+            //caps 
+            if (healthPoint > 10)
+                healthPoint = 10;
+
+            if (hungerLevel > 10)
+                hungerLevel = 10;
+
+            if (happinessLevel < 0)
+                happinessLevel = 0;
+
+            if (happinessLevel > 10)
+                happinessLevel = 10;
+
+            if (boredomLevel < 0)
+                boredomLevel = 0;
+
+            if (boredomLevel > 10)
+                boredomLevel = 10;
+
+            if (CurrentAnimationState != AnimationState.Tickeled && CurrentAnimationState != AnimationState.Eating
+               && CurrentAnimationState != AnimationState.Pet && CurrentAnimationState != AnimationState.Refuse)
+            {
+                animationState = AnimationState.Idle;
+
+                if (hungerLevel > 7)
+                {
+                    if (hungerLevel >= 9)
+                    {
+                        animationState = AnimationState.Angry;
+                    }
+                    else
+                    {
+                        animationState = AnimationState.Hungry;
+                    }
+                }
+                else if (hungerLevel > 4)
+                {
+                    if (happinessLevel < 5)
+                    {
+                        animationState = AnimationState.Sad;
+                    }
+                    else
+                    {
+                        animationState = AnimationState.Hungry;
+                    }
+                }
+                else
+                {
+                    if (happinessLevel >= 5)
+                    {
+                        if (boredomLevel <= 5)
+                        {
+                            animationState = AnimationState.Happy;
+                        }
+                        else
+                        {
+                            animationState = AnimationState.Idle;
+                        }
+                    }
+                    else
+                    {
+                        animationState = AnimationState.Sad;
+                    }
+                }
+
+                if (healthPoint <= 1)
+                {
+                    animationState = AnimationState.LowHP;
+                }
+            }
+
+            return animationState;
+
+            /*
             if (temporaryAnimationLoopActive && temporaryAnimationLoop == 3)
             {
                 //currentanimation state was successful e.g tickle, process this
@@ -333,92 +478,9 @@ namespace KeepItAliveProject
                         break;
                 }
 
-            }
-            /*
-            else if (temporaryAnimationLoopActive == false) //when not in loop to do this is wrong
-            {
-                //boredom should passively increase
-                //reduced by tickle and pet
-                boredomLevel += 0.1;
-
-                if (boredomLevel > 6)
-                    sentienceLevel += 0.5;
-
-
-                if (hungerLevel > 7)
-                {
-                    if (hungerLevel >= 9)
-                    {
-                       // CurrentAnimationState = AnimationState.Angry;
-                        //loose health
-                        //reduce happiness
-                    }
-                    else
-                    {
-                        //CurrentAnimationState = AnimationState.Hungry;
-                    }
-                }
-                else if (hungerLevel > 4)
-                {
-                    if (happinessLevel < 5)
-                    {
-                        //CurrentAnimationState = AnimationState.Sad;
-                    }
-                    else
-                    {
-                        //CurrentAnimationState = AnimationState.Hungry;
-                    }
-                }
-                else
-                {
-                    if (happinessLevel >= 5)
-                    {
-                        if (boredomLevel <= 5)
-                        {
-                            //CurrentAnimationState = AnimationState.Happy;
-                            //slowly increase health
-                        }
-                        else
-                        {
-                           // CurrentAnimationState = AnimationState.Idle;
-                        }
-                    }
-                    else
-                    {
-                        //CurrentAnimationState = AnimationState.Sad;
-                    }
-                }
-
-                if (healthPoint <= 1)
-                {
-                    CurrentAnimationState = AnimationState.LowHP;
-                }
             }*/
-
-            
-
-            //caps 
-
-            if (healthPoint > 10)
-                healthPoint = 10;
-
-            if (hungerLevel > 10)
-                hungerLevel = 10;
-
-            if (happinessLevel < 0)
-                happinessLevel = 0;
-
-            if (happinessLevel > 10)
-                happinessLevel = 10;
-
-            if (boredomLevel < 0)
-                boredomLevel = 0;
-
-            if (boredomLevel > 10)
-                boredomLevel = 10;
-            
-
-
+                
+               
         }
     }
 }
